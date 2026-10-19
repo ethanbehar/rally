@@ -1,0 +1,20 @@
+# One-click deploy: Render dashboard → New → Blueprint → pick this repo.
+services:
+  - type: web
+    name: clubquad
+    runtime: node
+    plan: free            # free = data resets when it sleeps/redeploys. Switch to "starter" + the disk below to keep data.
+    buildCommand: "echo no build needed"
+    startCommand: node --no-warnings server.js
+    healthCheckPath: /
+    envVars:
+      - key: NODE_VERSION
+        value: 22.12.0
+      - key: CAMPUS
+        value: RPI
+    # Uncomment on a paid plan so clubs/messages survive restarts:
+    # disk:
+    #   name: data
+    #   mountPath: /data
+    #   sizeGB: 1
+    # and add env var:  DB=/data/clubquad.db
